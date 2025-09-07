@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function POST(req: NextRequest) {
   try {
-    const { resumeText, language } = await req.json();
+    const { resumeText } = await req.json();
 
     const API_KEY = process.env.GEMINI_API_KEY;
     if (!API_KEY) {
@@ -12,13 +12,14 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
-    const prompt = `
-        Summarize the following resume into a short professional profile (3-4 sentences).
-        Write the results directly, without prefixes, without introductions, without text prompts, without additional explanations.
-        Write the summary in ${language === "english" ? "english" : "indonesian"}
-    ---
-    ${resumeText}
-    `;
+    // const prompt = `
+    //     Summarize the following resume into a short professional profile (3-4 sentences).
+    //     Write the results directly, without prefixes, without introductions, without text prompts, without additional explanations.
+    //     Write the summary in ${language === "english" ? "english" : "indonesian"}
+    // ---
+    // ${resumeText}
+    // `;
+    const prompt = `${resumeText}`
 
     const result = await model.generateContent(prompt);
     const summary = result.response.text();

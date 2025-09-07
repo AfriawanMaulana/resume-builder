@@ -18,7 +18,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="py-4 px-6 md:px-10 sticky w-full top-0 z-50 bg-transparent backdrop-blur-md flex items-center justify-between">
+    <nav className="py-4 px-6 md:px-10 fixed w-full top-0 z-50 bg-transparent backdrop-blur-md flex items-center justify-between">
       {/* Logo */}
       <Link href={'/'} className="flex items-center gap-2">
         <svg
@@ -83,8 +83,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="absolute top-16 left-0 w-full backdrop-blur-2xl shadow-md rounded-b-lg p-4 md:hidden">
+      <div className={`${isOpen ? "opacity-100" : "opacity-0"} transition-all duration-200 ease-in-out absolute top-18 left-0 w-full backdrop-blur-3xl bg-white/40 dark:bg-black/40 shadow-md rounded-b-lg p-4 md:hidden`}>
           <ul className="flex flex-col gap-4">
             {navLinks.map((item, index) => (
               <li key={index}>
@@ -110,7 +109,6 @@ const Navbar = () => {
                 Create Resume
             </Link>
         </div>
-      )}
     </nav>
   );
 };
