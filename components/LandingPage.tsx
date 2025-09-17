@@ -157,17 +157,17 @@ export default function LandingPage() {
       {/* Features */}
       <section id="features" className="px-6 md:px-10 py-16 md:py-20">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-2xl md:text-3xl font-bold">Semua yang Kamu Butuhkan</h2>
-          <p className="mt-2 text-black/70 dark:text-white/70 max-w-2xl">Dari pengisian data hingga ekspor PDF, semuanya dirancang untuk cepat, rapi, dan profesional.</p>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }} className="text-2xl md:text-3xl font-bold">Semua yang Kamu Butuhkan</motion.h2>
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }} viewport={{ once: true }} className="mt-2 text-black/70 dark:text-white/70 max-w-2xl">Dari pengisian data hingga ekspor PDF, semuanya dirancang untuk cepat, rapi, dan profesional.</motion.p>
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {features.map((f) => (
-              <div key={f.title} className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/10 backdrop-blur p-5 hover:shadow-sm">
+            {features.map((f, i) => (
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 + i / 4 }} viewport={{ once: true }} key={f.title} className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/10 backdrop-blur p-5 hover:shadow-sm">
                 <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600/10 text-violet-700">
                   {f.icon}
                 </div>
                 <h3 className="font-semibold">{f.title}</h3>
                 <p className="text-sm text-black/70 dark:text-white/70 mt-1">{f.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -176,20 +176,20 @@ export default function LandingPage() {
       {/* Steps */}
       <section className="px-6 md:px-10 pb-16">
         <div className="mx-auto max-w-6xl rounded-2xl border border-black/10 dark:border-white/10 bg-gradient-to-br from-white dark:from-white/10 dark:to-black/50 to-black/[0.02] p-6 md:p-10">
-          <h2 className="text-2xl md:text-3xl font-bold">Cara Kerja</h2>
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }} className="text-2xl md:text-3xl font-bold">Cara Kerja</motion.h2>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
-            {steps.map((s) => (
-              <div key={s.step} className="relative rounded-2xl bg-white/70 dark:bg-black/50 backdrop-blur p-5 border border-black/10 dark:border-white/10">
+            {steps.map((s, i) => (
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 + i / 4 }} viewport={{ once: true }} key={s.step} className="relative rounded-2xl bg-white/70 dark:bg-black/50 backdrop-blur p-5 border border-black/10 dark:border-white/10">
                 <div className="absolute -top-3 left-5 rounded-full bg-violet-600 text-white text-xs font-semibold px-2 py-1">{s.step}</div>
                 <h3 className="mt-3 font-semibold">{s.title}</h3>
                 <p className="text-sm text-black/70 dark:text-white/70 mt-1">{s.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
           <div className="mt-6">
-            <Link href="/build-resume" className="inline-flex items-center gap-2 rounded-xl bg-violet-600 px-5 py-3 text-white font-semibold hover:bg-violet-700">
+            <motion.a initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 1 }} viewport={{ once: true }} href="/build-resume" className="inline-flex items-center gap-2 rounded-xl bg-violet-600 px-5 py-3 text-white font-semibold hover:bg-violet-700">
               <Rocket className="h-5 w-5" /> Coba Sekarang
-            </Link>
+            </motion.a>
           </div>
         </div>
       </section>
@@ -198,12 +198,12 @@ export default function LandingPage() {
       <section className="px-6 md:px-10 pb-16">
         <div className="mx-auto max-w-6xl">
           <div className="flex items-end justify-between">
-            <h2 className="text-2xl md:text-3xl font-bold">Apa kata mereka</h2>
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }} viewport={{ once: true }} className="text-2xl md:text-3xl font-bold">Apa kata mereka</motion.h2>
             <div className="text-sm text-black/60 dark:text-white/60">5.0 dari 500+ pengguna</div>
           </div>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            {testimonials.map((t) => (
-              <div key={t.name} className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/50 backdrop-blur p-5">
+            {testimonials.map((t, i) => (
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 + i / 4 }} key={t.name} className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/70 dark:bg-black/50 backdrop-blur p-5">
                 <Stars n={t.rating} />
                 <p className="mt-3 text-black/80 dark:text-white/80">“{t.quote}”</p>
                 <div className="mt-4 flex items-center gap-3">
@@ -215,7 +215,7 @@ export default function LandingPage() {
                     <div className="text-sm text-black/60 dark:text-white/60">{t.role}</div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

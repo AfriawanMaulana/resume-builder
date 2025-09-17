@@ -1,5 +1,4 @@
 "use client"
-import Navbar from "@/components/Navbar";
 import { ArrowLeft, Download, Phone, Mail, Locate, Linkedin, Calendar, Building } from "lucide-react";
 import Link from "next/link";
 import {
@@ -336,8 +335,7 @@ export default function Page() {
     };
 
     return (
-        <div style={{ minHeight: "100vh", backgroundColor: "#ffffff" }}>
-            <Navbar />
+        <div style={{ minHeight: "100vh" }}>
             <section className="mt-20 flex flex-col space-y-10 w-full h-auto items-center pb-10">
                 <h1 className="font-bold text-3xl md:text-4xl">Preview Your Resume</h1>
 
@@ -379,15 +377,14 @@ export default function Page() {
             </section>
 
             {/* Resume Preview */}
-            <section className="w-full flex justify-center mb-20 py-10" style={{ backgroundColor: "#f3f4f6" }}>
+            <section className="w-full flex justify-center mb-20 py-10">
                 <div style={{ border: "1px solid #d1d5db", boxShadow: "0 4px 6px rgba(0,0,0,0.1)" }}>
                     <div 
                         id="resume-preview"
-                        className="w-[794px] min-h-[1123px] p-10 md:p-16 space-y-6"
-                        style={{ backgroundColor: "#f3f4f6" }}
+                        className="w-[794px] min-h-[1123px] p-10 md:p-16 space-y-6 bg-white"
                     >
                         {/* Profile */}
-                        <div className="flex flex-col space-y-3">
+                        <div className="flex flex-col space-y-3 text-black">
                             <h1 className="font-bold text-3xl">{dataForm?.fullname ? dataForm?.fullname : "John Doe"}</h1>
                             <h2 style={{ color: "#4b5563" }}>Frontend Developer</h2>
                             <ul className="flex flex-wrap gap-4">
@@ -412,7 +409,7 @@ export default function Page() {
                         <div className="flex flex-col space-y-4">
                             <div>
                                 <h1 className="font-bold text-lg mb-2" style={{ color: themeColor }}>{language === "id" ? "Ringkasan Profesional" : "Professional Summary" }</h1>
-                                <p>
+                                <p className="text-black">
                                   {dataForm.summary ? dataForm.summary : `
                                     Profesional IT berpengalaman 5+ tahun dengan keahlian dalam pengembangan web dan mobile. 
                                     Memiliki track record dalam memimpin tim dan mengembangkan solusi teknologi yang inovatif 
@@ -429,7 +426,7 @@ export default function Page() {
                                       {dataForm.experience.map((exp, index) => (
                                         <div key={index} className="mb-4">
                                           <div className="flex items-center justify-between">
-                                              <h2 className="font-bold">{exp.position ? exp.position : "Software Engineer"}</h2>
+                                              <h2 className="font-bold text-black">{exp.position ? exp.position : "Software Engineer"}</h2>
                                               <span className="inline-flex gap-2 items-center text-sm" style={{ color: "#4b5563" }}>
                                                   <Calendar className="w-4 h-4" style={{ color: "#4b5563" }} /> {exp.period_start ? exp.period_start : "Jan 2020"} - {exp.period_end ? exp.period_end : "Present"}
                                               </span>
@@ -437,7 +434,7 @@ export default function Page() {
                                           <h3 className="italic text-sm inline-flex gap-1 items-center" style={{ color: "#4b5563" }}>
                                               <Building className="w-3 h-3" style={{ color: "#4b5563" }} /> {exp.company_name ? exp.company_name : "Tech Solutions Inc."}
                                           </h3>
-                                          <ul className="list-disc list-inside space-y-1 mt-2 text-sm">
+                                          <ul className="list-disc list-inside space-y-1 mt-2 text-sm text-black">
                                               {exp.description_task ? exp.description_task.split(",").map((task, index) => (
                                                 <li key={index}>{task.trim()}</li>
                                               )) : (
@@ -464,7 +461,7 @@ export default function Page() {
                                 <div key={index} className="mb-4">
                                     <h1 className="font-bold text-lg mb-2" style={{ color: themeColor }}>{language === "id" ? "Pendidikan" : "Education"}</h1>
                                     <div className="flex items-center justify-between">
-                                        <h2 className="font-bold">{edu.level ? edu.level : "Bachelor's Degree of "}{edu.major ? edu.major : "Computer Science"}</h2>
+                                        <h2 className="font-bold text-black">{edu.level ? edu.level : "Bachelor's Degree of "}{edu.major ? edu.major : "Computer Science"}</h2>
                                         <span className="inline-flex gap-2 items-center text-sm" style={{ color: "#4b5563" }}>
                                             <Calendar className="w-4 h-4" style={{ color: "#4b5563" }} /> {edu.graduation ? edu.graduation : "2020"}
                                         </span>
@@ -482,11 +479,11 @@ export default function Page() {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <h1 className="font-bold text-lg mb-2" style={{ color: themeColor }}>Hard Skills</h1>
-                                <p>JavaScript, React, Node.js, Python, SQL, Git, Docker, AWS</p>
+                                <p className="text-black">JavaScript, React, Node.js, Python, SQL, Git, Docker, AWS</p>
                             </div>
                             <div>
                                 <h1 className="font-bold text-lg mb-2" style={{ color: themeColor }}>Soft Skills</h1>
-                                <p>Kepemimpinan, Komunikasi, Manajemen Waktu, Problem Solving</p>
+                                <p className="text-black">Kepemimpinan, Komunikasi, Manajemen Waktu, Problem Solving</p>
                             </div>
                         </div>
                     </div>

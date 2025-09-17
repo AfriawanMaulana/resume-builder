@@ -1,9 +1,8 @@
 "use client";
-import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 import { PlusCircle, Sparkles, Trash2 } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -11,7 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 export default function Page() {
     const [step, setStep] = useState(1);
     const [openPrompt, setOpenPrompt] = useState(false);
-    const [draftLog, setDraftLog] = useState(false);
+    // const [draftLog, setDraftLog] = useState(false);
     const [dataForm, setDataForm] = useState({
         //? User Data
         fullname: '',
@@ -150,6 +149,40 @@ export default function Page() {
         });
     };
 
+    //? Load Draft
+    const loadDraft = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        if (typeof window !== "undefined") {
+            const draft = localStorage.getItem("resume-draft");
+            if (draft) {
+                try {
+                    const getDraft = JSON.parse(draft);
+                    setDataForm((prev) => ({
+                        ...prev, 
+                        ...getDraft,
+                        experience: getDraft.experience || prev.experience,
+                        education: getDraft.education || prev.education,
+                    }));
+                    toast.success("Successfully loaded draft", {
+                        position: 'bottom-right',
+                        autoClose: 3000
+                    });
+                } catch (err) {
+                    console.error("Error parsing draft:", err);
+                    toast.error("Failed to load draft", {
+                        position: 'bottom-right',
+                        autoClose: 3000
+                    });
+                }
+            } else {
+                toast.error("Failed to load draft", {
+                        position: 'bottom-right',
+                        autoClose: 3000
+                    });
+            }
+        }
+    }
+
     //? Generate AI Summary (mock function)
     const generateAISummary = async () => {
         const res = await fetch("/api/gemini", {
@@ -173,37 +206,15 @@ export default function Page() {
         setOpenPrompt(false);
     };
 
-    useEffect(() => {
-        //? Get Draft
-        if (typeof window !== "undefined") {
-            const draft = localStorage.getItem("resume-draft");
-            if (draft) {
-                try {
-                    const getDraft = JSON.parse(draft);
-                    setDataForm((prev) => ({
-                        ...prev, 
-                        ...getDraft,
-                        experience: getDraft.experience || prev.experience,
-                        education: getDraft.education || prev.education,
-                    }));
-                    setDraftLog(true)
-                } catch (err) {
-                    console.error("Error parsing draft:", err);
-                }
-            } else {
-                setDraftLog(false);
-            }
-        }
-    }, []);
 
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <Navbar />
+        <div className="min-h-screen">
+            {/* <Navbar /> */}
             <section className="mt-20 flex flex-col space-y-20 w-full h-auto items-center pb-10">
             
                 {/* Show Draft Log */}
-                {draftLog && (
+                {/* {draftLog && (
                     <div className="flex absolute z-10 w-full h-screen items-center justify-center backdrop-blur-xs">
                         <div className="bg-white p-4 rounded-xl w-96 flex flex-col items-center justify-center space-y-10 shadow shadow-black/20">
                             <h1 className="font-semibold text-2xl">Continue editing draft?</h1>
@@ -231,18 +242,18 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
-                )}
+                )} */}
 
                 <div>
                     <h1 className="font-bold text-4xl text-center">Lengkapi Data CV Kamu</h1>
                 </div>
-                <div className="shadow-lg shadow-black/10 rounded-xl w-[90%] md:w-[70%] h-auto p-5 md:pt-10 md:px-10 bg-white">
+                <div className="shadow-lg shadow-black/10 dark:shadow-white/10 rounded-xl w-[90%] md:w-[70%] h-auto p-5 md:pt-10 md:px-10 ">
                     {/* Navigation Tabs */}
-                    <div className="flex flex-wrap items-center md:justify-evenly bg-slate-100 rounded-md p-1 mb-8">
+                    <div className="flex flex-wrap items-center md:justify-evenly rounded-md p-1 mb-8">
                         {userData.map((item, index) => (
                             <button 
                                 key={index + 1} 
-                                className={`${step === index + 1 ? 'bg-white/80 opacity-100 shadow-sm' : 'opacity-50'} cursor-pointer rounded-sm py-1.5 w-24 transition-all duration-200 ease-in-out font-semibold text-sm hover:opacity-75`}
+                                className={`${step === index + 1 ? 'bg-white/80 dark:bg-black dark:border dark:border-white/20 opacity-100 shadow-sm dark:shadow-white/20' : 'opacity-50'} cursor-pointer rounded-sm py-1.5 w-24 transition-all duration-200 ease-in-out font-semibold text-sm hover:opacity-75`}
                                 onClick={() => setStep(index + 1)}
                             >
                                 {item.header}
@@ -361,13 +372,13 @@ export default function Page() {
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={generateAISummary}
-                                                className="px-3 py-1 bg-violet-600 text-white rounded text-sm hover:bg-violet-700 transition-colors"
+                                                className="hover:cursor-pointer px-3 py-1 bg-violet-600 text-white rounded text-sm hover:bg-violet-700 transition-colors"
                                             >
                                                 Generate
                                             </button>
                                             <button
                                                 onClick={() => setOpenPrompt(false)}
-                                                className="px-3 py-1 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400 transition-colors"
+                                                className="hover:cursor-pointer px-3 py-1 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400 transition-colors"
                                             >
                                                 Batal
                                             </button>
@@ -669,10 +680,10 @@ export default function Page() {
                     )} 
 
                     {/* Action Buttons */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full items-center p-2 mt-10">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full items-center p-2 mt-10">
                         <Link 
                             href={'/preview-cv'}
-                            className="p-3 rounded-md border bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors font-medium text-center"
+                            className="p-3 rounded-md border bg-blue-50 dark:bg-transparent border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors font-medium text-center"
                         >
                             Preview CV
                         </Link>
@@ -683,10 +694,16 @@ export default function Page() {
                             Download PDF
                         </button> */}
                         <button 
-                            className="p-3 rounded-md border bg-green-50 border-green-200 text-green-700 hover:bg-green-100 transition-colors font-medium"
+                            className="hover:cursor-pointer p-3 rounded-md border bg-slate-50 dark:bg-transparent border-slate-200 text-slate-700 dark:text-slate-400 hover:bg-slate-100 transition-colors font-medium"
+                            onClick={loadDraft}
+                        >
+                            Load Draft
+                        </button>
+                        <button 
+                            className="hover:cursor-pointer p-3 rounded-md border bg-green-50 dark:bg-black border-green-200 text-green-700 hover:bg-green-100 transition-colors font-medium"
                             onClick={saveDraft}
                         >
-                            Simpan Draft
+                            Save Draft
                         </button>
                     </div>
                 </div>
